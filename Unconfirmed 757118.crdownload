@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+# Install mlxtend library
+get_ipython().system('pip install mlxtend')
+
+
+# In[2]:
+
+
+# Import necessary libraries
+import pandas as pd
+import mlxtend
+from mlxtend.frequent_patterns import apriori,association_rules
+import matplotlib.pyplot as plt
+
+
+# In[3]:
+
+
+# from google.colab import files
+#uploaded=files.uplod()
+
+
+# In[4]:
+
+
+#print the dataframe
+titanic=pd.read_csv("Titanic.csv")
+titanic
+
+
+# In[5]:
+
+
+titanic.info()
+
+
+# ### Observations
+# - there are no null vlaues
+# - and the datatype is object and categorical nature
+# - As the columns are categorical, we can adopt one-hot-encoding
+
+# In[6]:
+
+
+#Plot a bar chart to visualize the category of class on the ship
+counts=titanic['Class'].value_counts()
+plt.bar(counts.index,counts.values)
+
+
+# In[7]:
+
+
+df = pd.get_dummies(titanic,dtype=int)
+df.head()
+
+
+# In[8]:
+
+
+df.info()
+
+
+# In[11]:
+
+
+frequent_itemsets = apriori(df, min_support = 0.05, use_colnames=True, max_len=None)
+frequent_itemsets
+
+
+# In[13]:
+
+
+rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.0)
+rules
+
+
+# In[14]:
+
+
+rules.sort_values(by="lift", ascending = False)
+
+
+# In[16]:
+
+
+import matplotlib.pyplot as plt
+rules[['support','confidence','lift']].hist(figsize=(15,7))
+plt.show
+
+
+# In[ ]:
+
+
+
+
