@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+import pandas as pd
+import matplotlib.pyplot as ply
+from sklearn import datasets
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+from sklearn.metrics import classification_report
+from sklearn.preprocessing import LabelEncoder
+
+
+# In[3]:
+
+
+iris = pd.read_csv("iris.csv")
+
+
+# In[4]:
+
+
+iris
+
+
+# In[6]:
+
+
+import seaborn as sns
+counts = iris["variety"].value_counts()
+sns.barplot(data = counts)
+
+
+# In[7]:
+
+
+iris.info
+
+
+# In[9]:
+
+
+iris[iris.duplicated(keep=False)]
+
+
+# there are 150 rows and 5columns
+# ther are no null values
+# there is one duplicated row
+# the X-columns are sepal.length,sepal.width,petal.length and petal.widtg
+# All the X-columns are continuous
+# the Y-column is "variety"which is categorical
+# there are three flower categories(classes)
+
+# In[10]:
+
+
+iris[iris.duplicated]
+
+
+# In[13]:
+
+
+iris = iris.reset_index(drop=True)
+iris
+
+
+# In[ ]:
+
+
+
+
